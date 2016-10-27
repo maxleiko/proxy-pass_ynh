@@ -1,0 +1,19 @@
+# Retrieve arguments
+domain=$1
+path=$2
+proxy_pass=$3
+
+# Check domain/path availability
+sudo yunohost app checkurl $domain$path -a roundcube
+if [[ ! $? -eq 0 ]]; then
+    exit 1
+fi
+
+# Modify Nginx configuration file and copy it to Nginx conf directory
+sed -i "s@YNH_PATH@$path@g" ../conf/nginx.conf
+sed -i "s@YNH_PROXY_PASS@$proxy_pass@g" ../conf/nginx.conf
+sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/proxy_pass.conf
+
+# Reload nginx and regenerate SSOwat conf
+sudo service nginx reload
+sudo yunohost app ssowatconf

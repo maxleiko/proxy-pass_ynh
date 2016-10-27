@@ -1,0 +1,9 @@
+#!/bin/bash
+
+domain=$(sudo yunohost app setting proxy-pass domain)
+
+sudo rm /etc/nginx/conf.d/$domain.d/proxy_pass.conf
+
+# Reload nginx and regenerate SSOwat conf
+sudo service nginx reload
+sudo yunohost app ssowatconf

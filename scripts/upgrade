@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Retrieve arguments
+domain=$(sudo yunohost app setting proxy-pass domain)
+path=$(sudo yunohost app setting proxy-pass path)
+proxy_pass=$(sudo yunohost app setting proxy-pass proxy_pass)
+
+# Configure Nginx and reload
+sed -i "s@YNH_PATH@$path@g" ../conf/nginx.conf
+sed -i "s@YNH_PROXY_PASS@$proxy_pass@g" ../conf/nginx.conf
+sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/proxy_pass.conf
+
+# Reload nginx
+sudo service nginx reload

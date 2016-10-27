@@ -1,0 +1,50 @@
+{
+  "name": "ProxyPass",
+  "id": "proxy-pass",
+  "packaging_format": 1,
+  "description": {
+    "en": "Create an nginx proxy_pass",
+    "fr": "Créer un proxy_pass pour nginx"
+  },
+  "url": "https://github.com/maxleiko/proxy-pass_ynh",
+  "license": "free",
+  "maintainer": {
+    "name": "maxleiko",
+    "email": "max.tricoire@gmail.com"
+  },
+  "requirements": {
+    "yunohost": ">= 2.4.0"
+  },
+  "multi_instance": true,
+  "services": [
+    "nginx"
+  ],
+  "arguments": {
+    "install": [{
+      "name": "domain",
+      "type": "domain",
+      "ask": {
+        "en": "Choose a domain for your proxy_pass",
+        "fr": "Choisissez un domaine pour votre proxy_pass"
+      },
+      "example": "domain.tld"
+    }, {
+      "name": "path",
+      "type": "path",
+      "ask": {
+        "en": "Choose a path to access your proxy_pass",
+        "fr": "Choisissez un chemin pour accéder à votre proxy_pass"
+      },
+      "example": "/reverse_proxy",
+      "default": "/reverse_proxy"
+    }, {
+      "name": "proxy_pass",
+      "ask": {
+        "en": "Choose the proxy_pass target URI",
+        "fr": "Choisissez l'URI de destination du proxy_pass"
+      },
+      "example": "http://localhost:4242",
+      "default": "http://localhost:4242"
+    }]
+  }
+}
